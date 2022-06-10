@@ -189,16 +189,20 @@ namespace csharp_bibliotecaMvc.Controllers
 
                 _context.Autoris.Add(nuovo);
 
-                _context.SaveChanges();
+               // _context.SaveChanges();
 
-                var autoreInserito = _context.Autoris.Where(m => m.Nome == autoreLibro.Nome && m.Cognome==autoreLibro.Cognome).First();
+                //var autoreInserito = _context.Autoris.Where(m => m.Nome == autoreLibro.Nome && m.Cognome==autoreLibro.Cognome).First();
 
-                AutoreLibroDB nuovoPonte = new AutoreLibroDB();
+                //AutoreLibroDB nuovoElementoPonte = new AutoreLibroDB();
 
-                nuovoPonte.AutoriAutoreId = autoreLibro.IdLibro;
-                nuovoPonte.LibroID = autoreInserito.AutoreId;
+                //nuovoElementoPonte.AutoriAutoreId = autoreLibro.IdLibro;
+                //nuovoElementoPonte.LibroID = autoreInserito.AutoreId;
 
-                
+                var libro = _context.Libros.FirstOrDefault(m => m.LibroID == autoreLibro.IdLibro);
+                if (libro.Autori == null) { libro.Autori = new List<Autori>(); }
+
+                libro.Autori.Add(nuovo);
+
 
                 _context.SaveChanges();
             }
