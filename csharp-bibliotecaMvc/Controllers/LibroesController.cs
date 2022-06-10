@@ -169,11 +169,29 @@ namespace csharp_bibliotecaMvc.Controllers
 
         public IActionResult AddAutore(int id)
         {
+           
+
             ViewBag.Id = Convert.ToString(id);
+
             return View("AddAutore");
         }
 
-        // POST: Libroes/Create
+        public IActionResult AddAutoreDue(int id)
+        {
+            //parte per gestire la lista degli autori
+            List<Autori> tuttiautori = new List<Autori>();
+
+            tuttiautori = _context.Autoris.ToList();
+            // fine parte per gestire la lista degli autori
+
+            ViewData["listaAutori"] = tuttiautori;
+
+            ViewBag.Id = Convert.ToString(id);
+
+            return View("AddAutoreDue");
+        }
+
+        // POST: Libroes/AddAutore
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -189,19 +207,46 @@ namespace csharp_bibliotecaMvc.Controllers
 
                 _context.Autoris.Add(nuovo);
 
-               // _context.SaveChanges();
-
-                //var autoreInserito = _context.Autoris.Where(m => m.Nome == autoreLibro.Nome && m.Cognome==autoreLibro.Cognome).First();
-
-                //AutoreLibroDB nuovoElementoPonte = new AutoreLibroDB();
-
-                //nuovoElementoPonte.AutoriAutoreId = autoreLibro.IdLibro;
-                //nuovoElementoPonte.LibroID = autoreInserito.AutoreId;
+              
 
                 var libro = _context.Libros.FirstOrDefault(m => m.LibroID == autoreLibro.IdLibro);
                 if (libro.Autori == null) { libro.Autori = new List<Autori>(); }
 
                 libro.Autori.Add(nuovo);
+
+
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+        // POST: Libroes/AddAutore
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddAutoreDue(int LibroID,  string[] autoris )
+        {
+            if (ModelState.IsValid)
+            {
+                var libro = _context.Libros.FirstOrDefault(m => m.LibroID == LibroID);
+
+                foreach (var ele in autoris) 
+                {
+                    
+
+                    var autore = _context.Autoris.Find(Convert.ToInt32(ele));
+
+                    if (autore != null) 
+                    { 
+
+                        if (libro.Autori == null) { libro.Autori = new List<Autori>(); }
+                        libro.Autori.Add(autore);
+
+                    }
+
+
+                }
 
 
                 _context.SaveChanges();

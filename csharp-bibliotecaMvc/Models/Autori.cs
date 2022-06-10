@@ -8,9 +8,13 @@ namespace csharp_bibliotecaMvc.Models
     {
         [Key]
         public int AutoreId { get; set; }
+
+       
         public string Nome { get; set; }
         public string Cognome { get; set; }
 
         public ICollection<Libro>? Libro { get; set; }
+
+        //public List<Autori>? ElencoAutori { get; set; } // elenco creato per lista autori
     }
 }

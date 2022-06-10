@@ -6,5 +6,7 @@
         public string Nome { get; set; }
         public string Cognome { get; set; }
 
+        public List<Autori>? listaAu { get; set; }
+
     }
 }

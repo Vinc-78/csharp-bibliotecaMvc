@@ -1,0 +1,54 @@
+﻿@model csharp_bibliotecaMvc.Models.Libro
+
+@{
+    ViewData["Title"] = "Aggiungi Autore";
+}
+
+<h1>Selezioni Autore</h1>
+
+<h4>Libro</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddAutoreDue">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+
+                <label asp-for="LibroID" class="control-label"></label>
+                <input asp-for="LibroID" class="form-control" value="@ViewBag.Id" />
+                <span asp-validation-for="LibroID" class="text-danger"></span>
+            </div>
+
+            <label for="nome">Seleziona il nome</label>
+
+           
+            <label for="autoris">Seleziona il nome</label>
+
+            <select name="autoris" id="autoris" multiple>
+                @foreach(var dati in ViewData["listaAutori"] as List<Autori>  )
+                { 
+
+                    <option value="@dati.AutoreId">@dati.Nome @dati.Cognome </option>
+                }
+
+
+            </select>
+
+
+            <div class="form-group">
+                <input type="submit" value="AddAutoreDue" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
