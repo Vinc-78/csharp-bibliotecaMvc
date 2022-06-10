@@ -1,0 +1,54 @@
+﻿@model IEnumerable<csharp_bibliotecaMvc.Models.Libro>
+
+@{
+    ViewData["Title"] = "Home Page Biblioteca";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titolo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Settore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Scaffale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stato)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titolo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Settore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Scaffale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stato)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LibroID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LibroID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LibroID">Delete</a> |
+                <a asp-action="AddAutore" asp-route-id="@item.LibroID">Aggiungi Autore</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

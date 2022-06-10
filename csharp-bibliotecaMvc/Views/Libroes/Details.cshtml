@@ -1,0 +1,75 @@
+﻿@model csharp_bibliotecaMvc.Models.Libro;
+
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Libro</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Titolo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Titolo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Settore)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Settore)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Scaffale)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Scaffale)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Stato)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Stato)
+        </dd>
+
+        <!-- Parte Per Gestire i Prestiti-->
+        <!-- Mostra i prestiti solo se esistono -->
+
+        @if (Model.Prestito != null && Model.Prestito.Al <= DateTime.Today)
+        {
+
+            <dd class="col-sm-10">
+                <table class="table">
+                    <tr>
+                        <th>Prestito</th>
+                    </tr>
+
+                    <tr>
+                        <td>Dal: </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Prestito.Dal)
+                        </td>
+                        <td>Al: </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Prestito.Al)
+                        </td>
+                    </tr>
+
+                </table>
+            </dd>
+
+        }
+
+
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.LibroID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

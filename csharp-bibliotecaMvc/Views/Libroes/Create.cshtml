@@ -1,0 +1,52 @@
+﻿@model csharp_bibliotecaMvc.Models.Libro
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Libro</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Titolo" class="control-label"></label>
+                <input asp-for="Titolo" class="form-control" />
+                <span asp-validation-for="Titolo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Settore" class="control-label"></label>
+                <input asp-for="Settore" class="form-control" />
+                <span asp-validation-for="Settore" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Scaffale" class="control-label"></label>
+                <input asp-for="Scaffale" class="form-control" />
+                <span asp-validation-for="Scaffale" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                 @Html.DropDownListFor(m => m.Stato, new List<SelectListItem>
+                   { new SelectListItem{Text="Disponibile", Value="Disponibile"},
+                     new SelectListItem{Text="In Prestito", Value="Prestito"}}, "Seleziona")
+               
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
